@@ -1,1 +1,3 @@
 Intelligent transportation systems are applications for providing enhanced transportation systems and traffic management. Road-side access points (road-side units - RSU) would be placed in order to provide communication between vehicles and the network. Due to limited resources, different traffic circumstances and lack of infrastructure; prioritization of sites of interest (SOIs) for placement of road-side units is necessary. After the prioritization process, a decision should be taken for the final placement of those units. This is what this code does.
+
+Programming language extension: Constraint Handling Rules
