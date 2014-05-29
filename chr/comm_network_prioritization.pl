@@ -3,6 +3,6 @@
 
 :- use_module(library(chr)).
 
-:-chr_constraint soi/2,comm_infra/1,soi/3.
+:-chr_constraint soi/4,comm_infra/1,soi/5.
 
-communicationsInfrastructure @ comm_infra(Street) \ soi(Z, N) <=> Street == Z| M is N+100, soi(Street, M, True).
+communicationsInfrastructure @ comm_infra(Street) \ soi(Street,_,_,N) <=> M is N+100, soi(Street,_,_,M,true).

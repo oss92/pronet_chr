@@ -3,6 +3,6 @@
 
 :- use_module(library(chr)).
 
-:-chr_constraint soi/2,soi/3.
+:-chr_constraint soi/4,soi/5.
 
-flagRemoval @ soi(Street, N, Flag) \ soi(Street, N, Flag) <=> Flag == True | soi(Street, N).
+flagRemoval @ soi(Street,_,_,N,Flag) \ soi(Street,_,_,N,Flag) <=> Flag == true | soi(Street,_,_,N).

@@ -5,6 +5,6 @@
 
 :-chr_constraint rsu_radius/1, street/2, per_street/2.
 
-HowManyRSUsInStreet @ rsu_radius(Number) \ street(Name, Length) <=> Diameter is Number * 2,
+howManyRSUsInStreet @ rsu_radius(Number) \ street(Name, Length) <=> Diameter is Number * 2,
                                                                     PerStreet is Length // Diameter,
                                                                     per_street(Name, PerStreet).
