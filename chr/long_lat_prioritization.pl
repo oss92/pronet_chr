@@ -3,23 +3,25 @@
 
 :- use_module(library(chr)).
 
-:-chr_constraint soi/4, rsu_range/2, distance/6.
+:-chr_constraint soi/4, soi/5, rsu_range/2, distance/6.
 
 %soi(Street, Long, Lat, Priority) - rsu_range(Radius, OverlapPercentage) - distance(Long1, Lat1, Long2, Lat2, Distance, Flag)
-% if same street calculate distance between them if less than sth then save
 
-distanceBetweenGener         @ soi(Street1, Long1, Lat1, Priority1), soi(Street2, Long2, Lat2, Priority2) ==>
-                             Street1 == Street2 | distance(Long1, Lat1, Long2, Lat2, _, false).
+distanceBetweenGener         @ rsu_range(Range, Percentage),soi(Street1, Long1, Lat1, Priority1), soi(Street2, Long2, Lat2, Priority2) ==>
+                             Street1 == Street2, longlat(Long1, Lat1, Long2, Lat2, Distance),
+                             Distance >= ((100-(Percentage/2))*(Range/100)), Distance =< Range |
+                             soi(Street1, Long1, Lat1, Priority1, false), soi(Street2, Long2, Lat2, Priority2, false),
+                             distance(Long1, Lat1, Long2, Lat2, Distance, false).
 
-distanceBetween              @ rsu_range(Range, Percentage), soi(Street1, Long1, Lat1, Priority1), soi(Street2, Long2, Lat2, Priority2), distance(Long1, Lat1, Long2, Lat2, _, false) \
-                             soi(Street1, Long1, Lat1, Priority1), soi(Street2, Long2, Lat2, Priority2), distance(Long1, Lat1, Long2, Lat2, _, false)  <=>
-                             Street1 == Street2,
-                             longlat(Long1, Lat1, Long2, Lat2, Distance),
-                             Distance =< Range,
-                             Distance >= ((100-(Percentage/2))*(Range/100)) |
+distanceBetween              @ soi(Street1, Long1, Lat1, Priority1, false), soi(Street2, Long2, Lat2, Priority2, false) \
+                             soi(Street1, Long1, Lat1, Priority1, false), soi(Street2, Long2, Lat2, Priority2, false),
+                             distance(Long1, Lat1, Long2, Lat2, Distance, false)  <=>
+                             Street1 == Street2 |
                              distance(Long1, Lat1, Long2, Lat2, Distance, true),
-                             soi(Street1, Long1, Lat1, Priority1 + Distance),
-                             soi(Street2, Long2, Lat2, Priority2 + Distance).
+                             P1 is Priority1 + Distance,
+                             P2 is Priority2 + Distance,
+                             soi(Street1, Long1, Lat1, P1, true),
+                             soi(Street2, Long2, Lat2, P2, true).
                              
 longlat(Long1, Lat1, Long2, Lat2, Distance):-
                              Long1Rad is Long1 * (22/1260),
