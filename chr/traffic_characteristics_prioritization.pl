@@ -3,9 +3,9 @@
 
 :- use_module(library(chr)).
 
-:-chr_constraint soi/4,soi/5,speed/2,volume/2,density/2,power_supply/1,traffic_light/2, traffic_light/4, street_light/1.
+:-chr_constraint soi/4,soi/5,soi/6,soi/7,speed/2,volume/2,density/2, aadt/2.
 
-densityCalculation           @ volume(Street, AADT), speed(Street, Speed) <=> Density is AADT/Speed, density(Street, Density).
-speedOfRoad                  @ speed(Street, Speed) \ soi(Street, N) <=> M is N + Speed, soi(Street, M, true).
-densityOfRoad                @ density(Street, Density) \ soi(Street, N) <=> M is N + Density, soi(Street, M, true).
-aadtOfRoad                   @ aadt(Street, AADT) \ soi(Street, N) <=> M is N + AADT, soi(Street, M, true).
+densityCalculation           @ volume(Street, Volume), speed(Street, Speed) ==> Density is Volume/Speed, density(Street, Density).
+speedOfRoad                  @ speed(Street, Speed) \ soi(Street,Long,Lat,N) <=> M is N + Speed, soi(Street,Long,Lat,M, true).
+densityOfRoad                @ density(Street, Density) \ soi(Street,Long,Lat,N, true) <=> M is N + Density, soi(Street,Long,Lat, M, true, true).
+aadtOfRoad                   @ aadt(Street, AADT) \ soi(Street,Long,Lat,N, true, true) <=> M is N + AADT, soi(Street,Long,Lat, M, true, true,true).
