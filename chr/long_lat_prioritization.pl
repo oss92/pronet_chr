@@ -5,7 +5,12 @@
 
 :-chr_constraint soi/4, soi/5, rsu_range/2, distance/6.
 
-%soi(Street, Long, Lat, Priority) - rsu_range(Radius, OverlapPercentage) - distance(Long1, Lat1, Long2, Lat2, Distance, Flag)
+% Add list of SoIs in the form soi(StreetName, Long, Lat, Priority) along with
+% the range for the access units used and the overlap percentage in the form
+% rsu_range(Radius, OverlapPercentage)
+
+% Output: The SoIs with the flag true at the end are the correctly prioritized SoIs
+% Output form: soi(StreetName, Long, Lat, Priority, true)
 
 distanceBetweenGener         @ rsu_range(Range, Percentage),soi(Street1, Long1, Lat1, Priority1), soi(Street2, Long2, Lat2, Priority2) ==>
                              Street1 == Street2, longlat(Long1, Lat1, Long2, Lat2, Distance),
